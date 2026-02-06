@@ -1,0 +1,12 @@
+# Arquivos de anotações pessoais
+anotacoes.txt
+anotacoes_complementadas.txt
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# IDEs
+.vscode/
+.idea/
