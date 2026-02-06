@@ -4,18 +4,27 @@ import json
 # LMStudio Server URL
 url = "http://localhost:1234/v1/chat/completions"
 
-files = []
 
-qntfiles = int(input("Enter how many files you wish to complement: "))
-for i in range(qntfiles):
-    file = input(f"Enter the name of the {i + 1}º file: ")
-    files.append(file)
+while True:
 
-notes = ""
+    files = []
 
-for file in files:
-    with open(file, "r", encoding="utf-8") as f:
-        notes += f.read()
+    qntfiles = int(input("Enter how many files you wish to complement: "))
+    for i in range(qntfiles):
+            file = input(f"Enter the name of the {i + 1}º file: ")
+            files.append(file)
+
+    notes = ""
+
+    try:
+        for file in files:
+            with open(file, "r", encoding="utf-8") as f:
+                   notes += f.read()
+        break
+    except FileNotFoundError:
+            print(f"{file}: Wrong file name or path.")
+
+       
 
 MAX_CHARS = 8000
 if len(notes) > MAX_CHARS:
@@ -34,7 +43,6 @@ NOTES:
 {notes}
 
 DETAILED COMPLEMENT"""
-
 
 data = {
     "messages": [{"role": "user", "content": prompt}],
