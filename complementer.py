@@ -9,10 +9,15 @@ while True:
 
     files = []
 
-    qntfiles = int(input("Enter how many files you wish to complement: "))
+    try:
+        qntfiles = int(input("Enter how many files you wish to complement: "))
+    except ValueError:
+         print("Please insert a valid value.")
+         continue
+
     for i in range(qntfiles):
-            file = input(f"Enter the name of the {i + 1}º file: ")
-            files.append(file)
+        file = input(f"Enter the name of the {i + 1}º file: ")
+        files.append(file)
 
     notes = ""
 
@@ -23,7 +28,6 @@ while True:
         break
     except FileNotFoundError:
             print(f"{file}: Wrong file name or path.")
-
        
 
 MAX_CHARS = 8000
