@@ -24,5 +24,5 @@ Under active development - This is a learning project
 ## How to Use
 1. Have an LM Studio server running locally with an LLM model loaded;
 2. Place your notes in a 'notes.txt' file;
-3. Run: 'python complementador.py'
+3. Run: 'python complementer.py'
 4. Result available in: 'complemented_notes.txt'
