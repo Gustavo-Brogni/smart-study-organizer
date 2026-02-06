@@ -1,28 +1,28 @@
-# Complementador de Anotações com IA
+# AI Notes Complementer
 
-Um sistema que utiliza uma IA local (neste caso o LM Studio) para complementar anotações de aula com informações adicionais que possam ser relevantes diante o contexto.
+A system that uses a local AI (in this case LM Studio) to complement class notes with additional information that may be relevant given the context.
 
-## Status atual
-Em desenvolvimento ativo - Se trata de um projeto de aprendizado
+## Current Status
+Under active development - This is a learning project
 
-## Funcionalidades atuais
-- Leitura de arquivo de anotações (por ora .txt);
-- Complementação via IA local (LM Studio);
-- Geração de arquivo complementar organizado.
+## Current Features
+- Reading notes file (currently .txt);
+- Complementation via local AI (LM Studio);
+- Generation of organized complemented file.
 
-## Tecnologias
+## Technologies
 - Python 3
-- LM Studio (Estou utilizando Mistral 3B)
-- Biblioteca requests
+- LM Studio (I'm using Mistral 3B)
+- requests library
 
-## Próximos passos
-- [ ] Processar múltiplos arquivos
-- [ ] Integração com Google Drive
-- [ ] Interface gráfica
-- [ ] 'OCR' para cadernos físicos
+## Next Steps
+- [ ] Process multiple files
+- [ ] Google Drive integration
+- [ ] Graphical interface
+- [ ] OCR for physical notebooks
 
-## Como utilizar
-1. Tenha um servidor do LM Studio rodando localmente com algum modelo LLM carregado;
-2. Coloque suas anotações em um arquivo 'anotacoes.txt';
-3. Execute: 'python complementador.py'
-4. Resultado disponível em: 'anotacoes_complementadas.txt'
+## How to Use
+1. Have an LM Studio server running locally with an LLM model loaded;
+2. Place your notes in a 'notes.txt' file;
+3. Run: 'python complementador.py'
+4. Result available in: 'complemented_notes.txt'
