@@ -1,6 +1,7 @@
 # Personal note files
 notes.txt
 complemented_notes.txt
+*.txt
 
 # Python
 __pycache__/

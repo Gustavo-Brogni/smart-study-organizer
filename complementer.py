@@ -4,8 +4,23 @@ import json
 # LMStudio Server URL
 url = "http://localhost:1234/v1/chat/completions"
 
-with open("notes.txt", "r", encoding="utf-8") as file:
-    notes = file.read()
+files = []
+
+qntfiles = int(input("Enter how many files you wish to complement: "))
+for i in range(qntfiles):
+    file = input(f"Enter the name of the {i + 1}º file: ")
+    files.append(file)
+
+notes = ""
+
+for file in files:
+    with open(file, "r", encoding="utf-8") as f:
+        notes += f.read()
+
+MAX_CHARS = 8000
+if len(notes) > MAX_CHARS:
+    notes = notes[:MAX_CHARS]
+    print(f"The content was condensed to {MAX_CHARS} to fit context")
 
 
 prompt = f"""You are a specialized educational assistant. Analyze these class notes and:
