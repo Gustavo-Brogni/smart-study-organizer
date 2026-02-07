@@ -1,33 +1,41 @@
 import requests
-import json
 
 # LMStudio Server URL
 url = "http://localhost:1234/v1/chat/completions"
 
-
-while True:
+def get_files():
 
     files = []
-
-    try:
-        qntfiles = int(input("Enter how many files you wish to complement: "))
-    except ValueError:
-         print("Please insert a valid value.")
-         continue
-
+    while True:   
+        try:
+            qntfiles = int(input("Enter how many files you wish to complement: "))
+            break     
+        except ValueError:
+            print("Please insert a valid value.")
+            
     for i in range(qntfiles):
         file = input(f"Enter the name of the {i + 1}º file: ")
         files.append(file)
+        
+    return files
 
+def read_files(files):
     notes = ""
+    for file in files:
+        with open(file, "r", encoding="utf-8") as f:
+            notes += f.read()
+    return notes
+
+while True:
+
+    files = get_files()
 
     try:
-        for file in files:
-            with open(file, "r", encoding="utf-8") as f:
-                   notes += f.read()
+        notes = read_files(files)
         break
     except FileNotFoundError:
-            print(f"{file}: Wrong file name or path.")
+        print(f"File not found. Try again.")
+        continue
        
 
 MAX_CHARS = 8000
