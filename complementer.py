@@ -36,6 +36,8 @@ def get_files() -> list[str]:
         
     return file_list
 
+# TODO (Gustavo Brogni): create functions for reading files in pdf, docx and txt extensions
+
 def read_files(file_list: list[str]) -> str:
     """
     Reads the files contents.
