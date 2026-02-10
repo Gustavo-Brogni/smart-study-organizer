@@ -246,6 +246,10 @@ while True:
         print(f"File not found. Try again.")
         continue
 
+if not notes:
+    print("No content was extracted from any files. Certify if file names are correct or if they exist.\nExiting...")
+    sys.exit(1)
+
 mode = select_mode()
 language = select_language()
 ai_content = complement_with_ai(notes, language, mode)
