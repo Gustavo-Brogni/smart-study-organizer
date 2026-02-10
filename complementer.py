@@ -36,7 +36,59 @@ def get_files() -> list[str]:
         
     return file_list
 
-# TODO (Gustavo Brogni): create functions for reading files in pdf, docx and txt extensions
+def read_txt(file_path: str) -> str:
+    """
+    Reads contents from a .txt file.
+
+    Args:
+        file_path: Path to the .txt file.
+
+    Returns:
+        str: File content.
+    """
+
+    with open(file_path, "r", encoding="utf-8") as f:
+        return f.read()
+
+def read_pdf(file_path: str) -> str:
+    """
+    Reads content from a .pdf file.
+
+    Args:
+        file_path: Path to the .pdf file.
+
+    Returns:
+        str: Extracted text from PDF
+    """
+
+    file_content = ""
+
+    with pdfplumber.open(file_path) as pdf:
+        for page in pdf.pages:
+            text = page.extract_text()
+            file_content += text
+
+    return file_content
+
+
+def read_docx(file_path: str) -> str:
+    """
+    Reads contents from a .docx file.
+
+    Args:
+        file_path: Path to the .docx file.
+
+    Returns:
+        str: Extracted text from DOCX
+    """
+    doc = Document(file_path)
+    file_content = ""
+
+    for paragraph in doc.paragraphs:
+        file_content += paragraph.text + "\n"
+    return file_content
+
+
 
 def read_files(file_list: list[str]) -> str:
     """
