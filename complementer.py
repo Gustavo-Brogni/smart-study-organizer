@@ -104,8 +104,18 @@ def read_files(file_list: list[str]) -> str:
     notes_contents = ""
 
     for file in file_list:
-        with open(file, "r", encoding="utf-8") as f:
-            notes_contents += f.read()
+        if Path(file).suffix == ".txt":
+            txtcontent = read_txt(file)
+            notes_contents += txtcontent + "\n\n"
+        elif Path(file).suffix == ".pdf":
+            pdfcontent = read_pdf(file)
+            notes_contents += pdfcontent + "\n\n"
+        elif Path(file).suffix == ".docx":
+            docxcontent = read_docx(file)
+            notes_contents += docxcontent + "\n\n"
+        else:
+            print(f"Warning: '{file}' has unsupported extension or does not exist. The file has been skipped.")
+
     return notes_contents
 
 def select_language() -> str:
