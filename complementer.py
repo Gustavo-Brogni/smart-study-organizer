@@ -186,7 +186,12 @@ def complement_with_ai(notes_contents: str, selected_language: str, selected_mod
     """
 
     if len(notes_contents) > MAX_CHARS:
-        notes_contents = notes_contents[:MAX_CHARS]
+        truncated = notes_contents[:MAX_CHARS]
+        last_space = truncated.rfind(" ")
+        if last_space != -1:
+            notes_contents = truncated[:last_space]
+        else:
+            notes_contents = truncated
         print(f"The content was condensed to {MAX_CHARS} characters to fit context.")
 
     prompt = MODES[selected_mode]["prompt"].format(language = selected_language, notes = notes_contents)
