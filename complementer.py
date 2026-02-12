@@ -236,29 +236,38 @@ def save_files(notes_contents: str, ai_response: str) -> None:
 
     print("✅ Complemented file saved!")
 
-notes: str = ""
 
-while True:
+def main() -> None:
+    """
+    Main entry point of the application.
+    """
 
-    files = get_files()
+    notes: str = ""
 
-    try:
-        notes = read_files(files)
-        break
-    except FileNotFoundError:
-        print(f"File not found. Try again.")
-        continue
+    while True:
 
-if not notes:
-    print("No content was extracted from any files. Certify if file names are correct or if they exist.\nExiting...")
-    sys.exit(1)
+        files = get_files()
 
-mode = select_mode()
-language = select_language()
-ai_content = complement_with_ai(notes, language, mode)
+        try:
+            notes = read_files(files)
+            break
+        except FileNotFoundError:
+            print(f"File not found. Try again.")
+            continue
 
-if ai_content is not None:
-    save_files(notes, ai_content)
-else:
-    print("Couldn't generate AI response. Exiting...")
-    sys.exit(1)
+    if not notes:
+        print("No content was extracted from any files. Certify if file names are correct or if they exist.\nExiting...")
+        sys.exit(1)
+
+    mode = select_mode()
+    language = select_language()
+    ai_content = complement_with_ai(notes, language, mode)
+
+    if ai_content is not None:
+        save_files(notes, ai_content)
+    else:
+        print("Couldn't generate AI response. Exiting...")
+        sys.exit(1)
+
+if __name__ == "__main__":
+    main()
