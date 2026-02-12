@@ -89,7 +89,9 @@ def read_docx(file_path: str) -> str:
     file_content = ""
 
     for paragraph in doc.paragraphs:
-        file_content += paragraph.text + "\n"
+        text = paragraph.text
+        if text is not None:
+            file_content += text + "\n"
     return file_content
 
 
