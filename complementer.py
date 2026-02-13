@@ -12,7 +12,7 @@ Date: February 2026
 import requests
 import sys
 import pdfplumber
-from typing import Optional
+from typing import Optional, Callable, Final
 from pathlib import Path
 from docx import Document
 from config import API_URL, MAX_CHARS, TEMPERATURE, MAX_TOKENS, OUTPUT_FILE, LANGUAGES, MODES
@@ -74,7 +74,6 @@ def read_pdf(file_path: str) -> str:
 
     return file_content
 
-
 def read_docx(file_path: str) -> str:
     """
     Reads contents from a .docx file.
@@ -94,12 +93,10 @@ def read_docx(file_path: str) -> str:
             file_content += text + "\n"
     return file_content
 
-
-
 def read_files(file_list: list[str]) -> str:
     """
-    Detects extension, calls function based on it,
-    and concatenates the result.
+    Creates a dictionary with supported extensions, detects extension of file,
+    calls function based on it and concatenates the result.
 
     Args:
         file_list: List of files user wants to process.
@@ -109,18 +106,26 @@ def read_files(file_list: list[str]) -> str:
     """
     notes_contents = ""
 
-    for file in file_list:
-        if Path(file).suffix == ".txt":
-            txtcontent = read_txt(file)
-            notes_contents += txtcontent + "\n\n"
-        elif Path(file).suffix == ".pdf":
-            pdfcontent = read_pdf(file)
-            notes_contents += pdfcontent + "\n\n"
-        elif Path(file).suffix == ".docx":
-            docxcontent = read_docx(file)
-            notes_contents += docxcontent + "\n\n"
-        else:
-            print(f"Warning: '{file}' has unsupported extension or does not exist. The file has been skipped.")
+    extensions: Final[dict[str, Callable[[str], str]]] = {
+        ".txt": read_txt,
+        ".pdf": read_pdf,
+        ".docx": read_docx,
+    }
+
+    if not file_list or all(not file for file in file_list):
+        print("Warning: No files found. It seems that no files were specified.")
+    else:
+        for i, file in enumerate(file_list):
+            ext = Path(file).suffix
+            if not file or file.strip() == "":
+                print(f"Warning: {i + 1}º file was not found. Verify if all file names were specified.")
+            elif not ext:
+                print(f"Warning: '{file}' has no extension specified.")
+            elif ext in extensions:
+                content = extensions[ext](file)
+                notes_contents += content + "\n\n"
+            else:
+                print(f"Warning: '{file}' has unsupported extension or does not exist. The file has been skipped.")
 
     return notes_contents
 
